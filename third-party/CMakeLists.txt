@@ -1,4 +1,6 @@
 set(CMAKE_CXX_STANDARD 14)
+# On some systems (e.g. NixOS), `CMAKE_LIBRARY_ARCHITECTURE` can be empty
+set(CMAKE_INSTALL_LIBDIR_ARCHIND "${CMAKE_INSTALL_LIBDIR}")
 
 include(FetchContent)
 if(BUILD_IN_DEPS)
@@ -75,7 +77,7 @@ if(BUILD_IN_DEPS)
   set( BUILTIN_INCLUDES ${BUILTIN_INCLUDES} PARENT_SCOPE)
 endif(BUILD_IN_DEPS)
 
-find_package(fmt REQUIRED)
+find_package(fmt 8 REQUIRED)
 if(fmt_FOUND)
 else()
 FetchContent_Declare(
@@ -98,17 +100,18 @@ find_package(Boost COMPONENTS asio)
 # )
 # FetchContent_MakeAvailable(asio)
 # endif(asio_FOUND)
-# add_library(asio INTERFACE)
-# target_compile_definitions(asio INTERFACE -DASIO_STANDALONE -DASIO_DISABLE_VISIBILITY)
-# #used for tracing the asio async calls
-# #target_compile_definitions(asio INTERFACE -DASIO_ENABLE_HANDLER_TRACKING)
-# target_include_directories(asio SYSTEM INTERFACE
-#     $<BUILD_INTERFACE:${asio_SOURCE_DIR}/asio/include>
-# )
+add_library(asio INTERFACE)
+target_compile_definitions(asio INTERFACE -DASIO_STANDALONE -DASIO_DISABLE_VISIBILITY)
+#used for tracing the asio async calls
+#target_compile_definitions(asio INTERFACE -DASIO_ENABLE_HANDLER_TRACKING)
+target_include_directories(asio SYSTEM INTERFACE
+    $<BUILD_INTERFACE:${asio_SOURCE_DIR}/asio/include>
+)
 
 #adding cxxopts
+find_package(cxxopts REQUIRED)
 if(BUILD_MODULE_TOOLS)
-  find_package(cxxopts)
+  find_package(cxxopts REQUIRED)
   if(cxxopts_FOUND)
   else()
   FetchContent_Declare(

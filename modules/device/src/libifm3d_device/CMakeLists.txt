@@ -20,9 +20,9 @@ if(NOT BUILD_IN_DEPS)
     find_library(LIB_xmlrpc_client NAMES xmlrpc_client)
   else()
     find_package(
-	  xmlrpc-c CONFIG
-	  REQUIRED COMPONENTS xmlrpc xmlrpc_client xmlrpc++ xmlrpc_client++
-	)
+      xmlrpc-c CONFIG
+      REQUIRED COMPONENTS xmlrpc xmlrpc_client xmlrpc++ xmlrpc_client++
+    )
     set(LIB_xmlrpcxx xmlrpc-c::xmlrpc++)
     set(LIB_xmlrpc xmlrpc-c::xmlrpc)
     set(LIB_xmlrpc_clientxx xmlrpc-c::xmlrpc_client++)
@@ -54,7 +54,7 @@ target_include_directories(ifm3d_device
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     )
-    
+
 target_include_directories(ifm3d_device SYSTEM
   PRIVATE
     ${CURL_INCLUDE_DIRS}
@@ -77,10 +77,11 @@ if(WIN32)
       )
    endif()
 endif(WIN32)
-  
+
 #------------------
 # Linker settings
 #------------------
+find_package(fmt REQUIRED)
 target_link_libraries(
   ifm3d_device
   PUBLIC
@@ -102,7 +103,7 @@ set_target_properties(
   OUTPUT_NAME ifm3d_device
   LINKER_LANGUAGE CXX
   )
-  
+
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang" )
   set_target_properties(ifm3d_device PROPERTIES CXX_VISIBILITY_PRESET hidden)
 endif()

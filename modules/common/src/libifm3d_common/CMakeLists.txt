@@ -39,6 +39,7 @@ endif(WIN32)
 #------------------
 # Linker settings
 #------------------
+find_package(fmt REQUIRED)
 target_link_libraries(
   ifm3d_common
   PRIVATE

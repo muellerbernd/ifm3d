@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.11)
-# cmake_policy(SET CMP0048 NEW)
+cmake_policy(SET CMP0048 NEW)
+# On some systems (e.g. NixOS), `CMAKE_LIBRARY_ARCHITECTURE` can be empty
+set(CMAKE_INSTALL_LIBDIR_ARCHIND "${CMAKE_INSTALL_LIBDIR}")
 
 # Some generic settings
 include(cmake/StandardProjectSettings.cmake)

@@ -58,12 +58,15 @@ endif(WIN32)
 #------------------
 # Linker settings
 #------------------
+find_package(fmt REQUIRED)
+find_package(cxxopts REQUIRED)
 target_link_libraries(
   ifm3d_tools_shared
   ifm3d_common
   ifm3d_device
   ${CURL_LIBRARIES}
   cxxopts
+  $<BUILD_INTERFACE:cxxopts>
   $<BUILD_INTERFACE:fmt::fmt-header-only>
   )
 

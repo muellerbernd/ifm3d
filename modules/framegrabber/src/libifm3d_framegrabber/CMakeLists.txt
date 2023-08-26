@@ -2,7 +2,7 @@
 ## Target: libifm3d_framegrabber.so
 ################################################
 file(GLOB IFM3D_FG_SOURCES CONFIGURE_DEPENDS *.cpp *.hpp)
-add_library(ifm3d_framegrabber 
+add_library(ifm3d_framegrabber
             ${IFM3D_FG_SOURCES}
             ${CMAKE_CURRENT_SOURCE_DIR}/algo/o3r_uncompress_di.cpp
             )
@@ -32,7 +32,7 @@ if(WIN32)
       PUBLIC
         IFM3D_FRAME_GRABBER_STATIC_LIB=1)
    endif()
-endif(WIN32) 
+endif(WIN32)
 
 #------------------
 # Linker settings
@@ -40,6 +40,7 @@ endif(WIN32)
 # Note : $<BUILD_INTERFACE:asio> needed to avoid install export error
 # during static linkage of framgrabber for python binding as asio
 # is header only target.
+find_package(fmt REQUIRED)
 target_link_libraries(
   ifm3d_framegrabber
   PUBLIC
