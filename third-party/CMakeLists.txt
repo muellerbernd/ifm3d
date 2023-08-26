@@ -75,6 +75,7 @@ if(BUILD_IN_DEPS)
   set( BUILTIN_INCLUDES ${BUILTIN_INCLUDES} PARENT_SCOPE)
 endif(BUILD_IN_DEPS)
 
+find_package(fmt)
 FetchContent_Declare(
   fmt
     GIT_REPOSITORY https://github.com/fmtlib/fmt.git
@@ -83,6 +84,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(fmt)
 
 #adding asio
+find_package(asio)
 FetchContent_Declare(
   asio
     GIT_REPOSITORY https://github.com/chriskohlhoff/asio
