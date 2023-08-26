@@ -87,25 +87,24 @@ FetchContent_MakeAvailable(fmt)
 endif(fmt_FOUND)
 
 #adding asio
-# find_package(asio REQUIRED)
+# find_package(asio)
 find_package(Boost COMPONENTS asio)
-
-if(asio_FOUND)
-else()
-FetchContent_Declare(
-  asio
-    GIT_REPOSITORY https://github.com/chriskohlhoff/asio
-    GIT_TAG asio-1-26-0
-)
-FetchContent_MakeAvailable(asio)
-endif(asio_FOUND)
-add_library(asio INTERFACE)
-target_compile_definitions(asio INTERFACE -DASIO_STANDALONE -DASIO_DISABLE_VISIBILITY)
-#used for tracing the asio async calls
-#target_compile_definitions(asio INTERFACE -DASIO_ENABLE_HANDLER_TRACKING)
-target_include_directories(asio SYSTEM INTERFACE
-    $<BUILD_INTERFACE:${asio_SOURCE_DIR}/asio/include>
-)
+# if(asio_FOUND)
+# else()
+# FetchContent_Declare(
+#   asio
+#     GIT_REPOSITORY https://github.com/chriskohlhoff/asio
+#     GIT_TAG asio-1-26-0
+# )
+# FetchContent_MakeAvailable(asio)
+# endif(asio_FOUND)
+# add_library(asio INTERFACE)
+# target_compile_definitions(asio INTERFACE -DASIO_STANDALONE -DASIO_DISABLE_VISIBILITY)
+# #used for tracing the asio async calls
+# #target_compile_definitions(asio INTERFACE -DASIO_ENABLE_HANDLER_TRACKING)
+# target_include_directories(asio SYSTEM INTERFACE
+#     $<BUILD_INTERFACE:${asio_SOURCE_DIR}/asio/include>
+# )
 
 #adding cxxopts
 if(BUILD_MODULE_TOOLS)
