@@ -108,6 +108,9 @@ find_package(Boost COMPONENTS asio)
 
 #adding cxxopts
 if(BUILD_MODULE_TOOLS)
+  find_package(cxxopts)
+  if(cxxopts_FOUND)
+  else()
   FetchContent_Declare(
     cxxopts
       GIT_REPOSITORY https://github.com/jarro2783/cxxopts
@@ -115,6 +118,7 @@ if(BUILD_MODULE_TOOLS)
       GIT_SHALLOW TRUE
   )
   FetchContent_MakeAvailable(cxxopts)
+  endif(cxxopts_FOUND)
 endif(BUILD_MODULE_TOOLS)
 
 #adding websocketpp
