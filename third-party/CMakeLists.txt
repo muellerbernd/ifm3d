@@ -75,16 +75,21 @@ if(BUILD_IN_DEPS)
   set( BUILTIN_INCLUDES ${BUILTIN_INCLUDES} PARENT_SCOPE)
 endif(BUILD_IN_DEPS)
 
-find_package(fmt)
+find_package(fmt REQUIRED)
+if(fmt_FOUND)
+else()
 FetchContent_Declare(
   fmt
     GIT_REPOSITORY https://github.com/fmtlib/fmt.git
     GIT_TAG 8.0.1
 )
 FetchContent_MakeAvailable(fmt)
+endif(fmt_FOUND)
 
 #adding asio
-find_package(asio)
+find_package(asio REQUIRED)
+if(asio_FOUND)
+else()
 FetchContent_Declare(
   asio
     GIT_REPOSITORY https://github.com/chriskohlhoff/asio
@@ -98,6 +103,7 @@ target_compile_definitions(asio INTERFACE -DASIO_STANDALONE -DASIO_DISABLE_VISIB
 target_include_directories(asio SYSTEM INTERFACE
     $<BUILD_INTERFACE:${asio_SOURCE_DIR}/asio/include>
 )
+endif(asio_FOUND)
 
 #adding cxxopts
 if(BUILD_MODULE_TOOLS)
