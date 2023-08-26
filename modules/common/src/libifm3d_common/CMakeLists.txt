@@ -41,7 +41,7 @@ endif(WIN32)
 #------------------
 target_link_libraries(
   ifm3d_common
-  INTERFACE
+  PRIVATE
     $<BUILD_INTERFACE:fmt::fmt-header-only>
   )
 

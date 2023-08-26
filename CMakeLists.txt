@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
-cmake_policy(SET CMP0048 NEW)
+# cmake_policy(SET CMP0048 NEW)
 
 # Some generic settings
 include(cmake/StandardProjectSettings.cmake)
@@ -10,7 +10,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake/modules)
 set(ROOT_PROJECT_NAME IFM3D)
 set(PROJECT_NAME ${ROOT_PROJECT_NAME})
 find_program(GIT_EXECUTABLE git)
-include(GetVersionFromGitTag) 
+include(GetVersionFromGitTag)
 
 # Create aliases in order to avoid ${${..}} syntax in other files
 set(ROOT_PROJECT_VERSION ${${ROOT_PROJECT_NAME}_VERSION})
