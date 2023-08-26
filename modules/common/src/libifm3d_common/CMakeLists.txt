@@ -16,7 +16,7 @@ target_include_directories(ifm3d_common
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     )
-    
+
 target_compile_definitions(ifm3d_common
 INTERFACE
   IFM3D_COMMON_LOGGING_STRIP_PREFIX="${ROOT_PROJECT_PATH}"
@@ -35,14 +35,14 @@ if(WIN32)
       )
    endif()
 endif(WIN32)
-  
+
 #------------------
 # Linker settings
 #------------------
 target_link_libraries(
   ifm3d_common
   PRIVATE
-    $<BUILD_INTERFACE:fmt::fmt-header-only>
+    $<BUILD_INTERFACE:fmt::fmt>
   )
 
 set_target_properties(
@@ -52,7 +52,7 @@ set_target_properties(
   OUTPUT_NAME ifm3d_common
   LINKER_LANGUAGE CXX
   )
-  
+
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang" )
   set_target_properties(ifm3d_common PROPERTIES CXX_VISIBILITY_PRESET hidden)
 endif()
