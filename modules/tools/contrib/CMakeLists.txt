@@ -11,7 +11,8 @@ if(NOT CMAKE_CROSSCOMPILING)
 
     install(
       FILES ${IFM3D_TOOLS_BINARY_DIR}/ifm3d_completions
-      DESTINATION /etc/bash_completion.d
+      # DESTINATION /etc/bash_completion.d
+      DESTINATION ${IFM3D_TOOLS_BINARY_DIR}/bash_completion.d
       COMPONENT tools
       )
   endif()

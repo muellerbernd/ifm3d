@@ -78,8 +78,7 @@ if(BUILD_IN_DEPS)
 endif(BUILD_IN_DEPS)
 
 find_package(fmt 8 REQUIRED)
-if(fmt_FOUND)
-else()
+if(NOT fmt_FOUND)
 FetchContent_Declare(
   fmt
     GIT_REPOSITORY https://github.com/fmtlib/fmt.git
@@ -89,17 +88,14 @@ FetchContent_MakeAvailable(fmt)
 endif(fmt_FOUND)
 
 #adding asio
-# find_package(asio)
-find_package(Boost COMPONENTS asio)
-# if(asio_FOUND)
-# else()
-# FetchContent_Declare(
-#   asio
-#     GIT_REPOSITORY https://github.com/chriskohlhoff/asio
-#     GIT_TAG asio-1-26-0
-# )
-# FetchContent_MakeAvailable(asio)
-# endif(asio_FOUND)
+if(BUILD_IN_DEPS)
+FetchContent_Declare(
+  asio
+    GIT_REPOSITORY https://github.com/chriskohlhoff/asio
+    GIT_TAG asio-1-26-0
+)
+FetchContent_MakeAvailable(asio)
+endif(BUILD_IN_DEPS)
 add_library(asio INTERFACE)
 target_compile_definitions(asio INTERFACE -DASIO_STANDALONE -DASIO_DISABLE_VISIBILITY)
 #used for tracing the asio async calls
@@ -109,11 +105,9 @@ target_include_directories(asio SYSTEM INTERFACE
 )
 
 #adding cxxopts
-find_package(cxxopts REQUIRED)
 if(BUILD_MODULE_TOOLS)
   find_package(cxxopts REQUIRED)
-  if(cxxopts_FOUND)
-  else()
+  if(NOT cxxopts_FOUND)
   FetchContent_Declare(
     cxxopts
       GIT_REPOSITORY https://github.com/jarro2783/cxxopts
