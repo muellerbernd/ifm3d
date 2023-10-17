@@ -230,7 +230,16 @@ ifm3d::FrameGrabber::Impl::Impl(ifm3d::Device::Ptr cam,
                 {
                   this->SetOrganizer(std::make_unique<O3ROrganizer>());
                 }
+              LOG_INFO("Device port compatibility verified, Organizer "
+                       "configuration aligned.")
             }
+        }
+      if (organizer_ == nullptr)
+        {
+          this->SetOrganizer(std::make_unique<O3ROrganizer>());
+          LOG_WARNING(
+            "The specified port is not compatible with the connected device. "
+            "Falling back to the default Organizer");
         }
     }
 
@@ -501,6 +510,15 @@ ifm3d::FrameGrabber::Impl::ConnectHandler(const std::optional<json>& schema)
               std::placeholders::_1,
               std::placeholders::_2,
               0));
+
+  if (this->cam_->AmI(ifm3d::Device::device_family::O3X))
+    {
+      if (!this->is_ready_)
+        {
+          this->is_ready_ = true;
+          this->ready_promise_.set_value();
+        }
+    }
 }
 
 void

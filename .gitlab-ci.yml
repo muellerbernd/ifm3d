@@ -13,13 +13,14 @@ variables:
 
 include:
   - local: .gitlab/rules.yml
+  - local: .gitlab/configs.yml
   - local: .gitlab/docker_config.yml
   - local: .gitlab/update_version.yml
   - local: .gitlab/check.yml
   - local: .gitlab/build_windows.yml
   - local: .gitlab/build_linux.yml
   - local: .gitlab/test_windows.yml
-  - local: .gitlab/test_linux.yml  
+  - local: .gitlab/test_linux.yml
   - local: .gitlab/sign_windows.yml
   - local: .gitlab/tag.yml
   - local: .gitlab/release.yml

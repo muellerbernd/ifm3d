@@ -96,6 +96,15 @@ TEST_F(FrameGrabberTest, masking)
   this->fg_->Stop();
 }
 #endif
+
+TEST_F(FrameGrabberTest, FactoryDefaults)
+{
+  EXPECT_NO_THROW(
+    std::dynamic_pointer_cast<ifm3d::LegacyDevice>(dev_)->FactoryReset());
+  std::this_thread::sleep_for(std::chrono::seconds(6));
+  EXPECT_NO_THROW(this->dev_->DeviceType());
+}
+
 TEST_F(FrameGrabberTest, WaitForFrame)
 {
   LOG_INFO("WaitForFrame test");
@@ -561,4 +570,10 @@ TEST_F(FrameGrabberTest, JSON_model)
         EXPECT_TRUE(false);
       }
   });
+}
+
+TEST_F(FrameGrabberTest, digonistic_data_grabber)
+{
+  LOG_INFO("digonistic_data_grabber test");
+  EXPECT_NO_THROW(std::make_shared<ifm3d::FrameGrabber>(dev_, 50009));
 }
